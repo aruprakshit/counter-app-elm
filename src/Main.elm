@@ -9,9 +9,14 @@ type alias Model =
     { count : Int }
 
 
-initialModel : Int -> ( Model, Cmd msg )
+initialModel : Maybe Int -> ( Model, Cmd msg )
 initialModel flags =
-    ( Model flags, Cmd.none )
+    case flags of
+        Just flagVal ->
+            ( Model flagVal, Cmd.none )
+
+        Nothing ->
+            ( Model 0, Cmd.none )
 
 
 type Msg
@@ -42,7 +47,7 @@ subscriptions model =
     Sub.none
 
 
-main : Program Int Model Msg
+main : Program (Maybe Int) Model Msg
 main =
     Browser.element
         { init = initialModel
