@@ -1,0 +1,20 @@
+{
+  "name": "js-interops-elm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "elm reactor",
+    "repl": "elm repl",
+    "install": "elm install",
+    "live": "elm-live src/Main.elm --open -- --output=bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "elm": "^0.19.0-bugfix2",
+    "elm-live": "^3.2.3"
+  }
+}
