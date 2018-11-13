@@ -8,6 +8,20 @@ import Json.Decode as D
 import Json.Encode as E
 
 
+main : Program (Maybe Int) Model Msg
+main =
+    Browser.element
+        { init = initialModel
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }
+
+
+
+-- Models
+
+
 type alias Model =
     { count : Int
     , incBy : Int
@@ -31,10 +45,18 @@ initialModel flags =
             ( Model 0 1 1, Cmd.none )
 
 
+
+-- Messages
+
+
 type Msg
     = Increment
     | Decrement
     | Received E.Value
+
+
+
+-- Update
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -104,9 +126,17 @@ view model =
         ]
 
 
+
+-- Subscriptions
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     toElm Received
+
+
+
+-- Decoders
 
 
 counterScaleDecoder : D.Decoder Scale
@@ -114,10 +144,6 @@ counterScaleDecoder =
     D.map2 Scale
         (D.field "x" D.int)
         (D.field "y" D.int)
-
-
-
--- Decoders
 
 
 decodeCounterScale : D.Value -> Scale
@@ -138,13 +164,3 @@ port toJs : E.Value -> Cmd msg
 
 
 port toElm : (E.Value -> msg) -> Sub msg
-
-
-main : Program (Maybe Int) Model Msg
-main =
-    Browser.element
-        { init = initialModel
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
