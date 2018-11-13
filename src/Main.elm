@@ -29,7 +29,7 @@ type alias Model =
     }
 
 
-type alias Scale =
+type alias Scales =
     { x : Int
     , y : Int
     }
@@ -139,21 +139,21 @@ subscriptions model =
 -- Decoders
 
 
-counterScaleDecoder : D.Decoder Scale
+counterScaleDecoder : D.Decoder Scales
 counterScaleDecoder =
-    D.map2 Scale
+    D.map2 Scales
         (D.field "x" D.int)
         (D.field "y" D.int)
 
 
-decodeCounterScale : D.Value -> Scale
+decodeCounterScale : D.Value -> Scales
 decodeCounterScale value =
     case D.decodeValue counterScaleDecoder value of
         Ok scales ->
             scales
 
         Err _ ->
-            Scale 1 1
+            Scales 1 1
 
 
 
