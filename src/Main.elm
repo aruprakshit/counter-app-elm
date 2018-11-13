@@ -78,10 +78,10 @@ update msg model =
 
         Received val ->
             let
-                record_ =
+                { x, y } =
                     decodeCounterScale val
             in
-            ( { model | incBy = record_.x, decBy = record_.y }, Cmd.none )
+            ( { model | incBy = x, decBy = y }, Cmd.none )
 
 
 
