@@ -1,19 +1,31 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <link rel="stylesheet" href="whatever-you-want.css">
-  <script src="bundle.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main</title>
+    <script src="bundle.js"></script>
+  </head>
 
-<body>
-  <div id="elm"></div>
-  <script>
-  var app = Elm.Main.init({
-    node: document.getElementById('elm'),
-    flags: 20 // Try null here
-  });
-  </script>
-</body>
+  <body>
+    <div id="elm"></div>
+    <script>
+      var app = Elm.Main.init({
+        node: document.getElementById("elm"),
+        flags: parseInt(localStorage.getItem('cache'), 10) // Try null here
+      });
+
+      var scales = {x: 2, y: 3}
+
+      app.ports.toJs.subscribe(function(data) {
+        console.log(`${data} is saved to local storage`);
+        localStorage.setItem("cache", JSON.stringify(data));
+      });
+
+      setTimeout(function(){
+        console.log(`${JSON.stringify(scales)} are sent to Elm runtime`);
+        app.ports.toElm.send(scales);
+      }, 5000);
+
+    </script>
+  </body>
 </html>
